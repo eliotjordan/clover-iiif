@@ -31,9 +31,9 @@ const Wrapper = () => {
         options={{
           canvasBackgroundColor: "#e6e8eb",
           canvasHeight: "600px",
-          renderAbout: true,
-          showIIIFBadge: true,
-          showInformationToggle: true,
+          renderAbout: false,
+          showIIIFBadge: false,
+          showInformationToggle: false,
           showTitle: true,
         }}
       />

@@ -11,4 +11,46 @@ const Group = styled(RadioGroup.Root, {
   zIndex: "0",
 });
 
-export { Group };
+const MediaStyled = styled("div", {
+  overflowX: "scroll",
+
+  "[thumbnail-panel]": {
+    "> span, > h3": {
+      display: "none",
+    },
+
+    padding: "1rem 0",
+  },
+
+  "[thumbnail-group]": {
+    margin: "0 0.618rem",
+
+    '&[data-selected="true"]': {
+      background: "none",
+    },
+  },
+
+  "[thumbnail-item]": {
+    '&[data-selected="true"]': {
+      background: "none",
+    },
+
+    button: {
+      margin: "0",
+      padding: "0",
+      background: "transparent",
+      border: "none",
+    },
+
+    figure: {
+      margin: "0",
+      padding: "0",
+
+      "> div": {
+        width: "143px !important",
+      },
+    },
+  },
+});
+
+export { Group, MediaStyled };

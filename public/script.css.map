@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../node_modules/@iiif/thumbnail-panel/dist/style.css"],
+  "sourcesContent": ["[thumbnail-panel]{display:flex;flex-direction:column}[thumbnail-panel][data-orientation=horizontal]{flex-direction:row}[thumbnail-group]{display:flex}[thumbnail-group][data-selected=true]{background:blue}[thumbnail-item]{display:flex}[thumbnail-item]>button{background:transparent;border:none}[thumbnail-item][data-selected=true]{background:red}\n"],
+  "mappings": ";AAAA;AAAkB;AAAa;AAAA;AAAsB;AAA+C;AAAA;AAAmB;AAAkB;AAAA;AAAa;AAAsC;AAAA;AAAgB;AAAiB;AAAA;AAAa;AAAwB;AAAuB;AAAA;AAAY;AAAqC;AAAA;",
+  "names": []
+}
