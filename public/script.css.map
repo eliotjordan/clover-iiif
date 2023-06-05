@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../node_modules/@iiif/thumbnail-panel/dist/style.css"],
+  "sourcesContent": ["[thumbnail-panel]{display:flex;flex-direction:column}[thumbnail-panel][data-orientation=horizontal]{flex-direction:row}[thumbnail-group]{display:flex}[thumbnail-item]{display:flex;margin:0 .5rem .5rem 0}[thumbnail-item] button{margin:0;padding:0;background:transparent;border:none;cursor:pointer}[thumbnail-item] button>figure{margin:0}[thumbnail-item] button>figure>div>img{width:100%;height:100%;object-position:50% 50%;object-fit:contain}[thumbnail-item][data-selected=true]{outline:1px solid black}\n"],
+  "mappings": ";AAAA;AAAkB;AAAa;AAAA;AAAsB;AAA+C;AAAA;AAAmB;AAAkB;AAAA;AAAa;AAAiB;AAAa;AAAA;AAAuB;AAAwB;AAAS;AAAU;AAAuB;AAAY;AAAA;AAAe;AAA+B;AAAA;AAAS;AAAuC;AAAW;AAAY;AAAwB;AAAA;AAAmB;AAAqC;AAAA;",
+  "names": []
+}

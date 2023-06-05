@@ -1,5 +1,9 @@
 export const manifests = [
   {
+    url: "https://digirati-co-uk.github.io/wunder.json",
+    label: "Wunder der Vererbung",
+  },
+  {
     url: "https://api.dc.library.northwestern.edu/api/v2/works/71153379-4283-43be-8b0f-4e7e3bfda275?as=iiif",
     label: 'Zagna "lunga"',
   },

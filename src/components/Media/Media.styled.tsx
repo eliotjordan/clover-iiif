@@ -11,4 +11,31 @@ const Group = styled(RadioGroup.Root, {
   zIndex: "0",
 });
 
-export { Group };
+const ThumbnailPanelWrapper = styled("div", {
+  overflowX: "scroll",
+
+  "[thumbnail-panel]": {
+    padding: "1.618rem 2px",
+  },
+  "[thumbnail-group]": {
+    margin: "0 1.618rem 0 0",
+    outline: "2px solid transparent",
+
+    "&[data-selected='true']": {
+      outline: "2px solid $primary",
+    },
+  },
+  "[thumbnail-item]": {
+    margin: "0",
+
+    "&[data-selected='true']": {
+      outline: "none",
+    },
+
+    "figure > div": {
+      width: "143px !important",
+    },
+  },
+});
+
+export { Group, ThumbnailPanelWrapper };
