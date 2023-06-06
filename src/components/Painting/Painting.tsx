@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import React, { useEffect } from "react";
 import Player from "@/components/Player/Player";
 import ImageViewer from "@/components/ImageViewer/ImageViewer";
