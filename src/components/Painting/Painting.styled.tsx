@@ -18,6 +18,24 @@ const PaintingStyled = styled("div", {
       },
     },
   },
+
+  "#pan-zoom-controls": {
+    position: "absolute",
+    zIndex: "1",
+    right: "0",
+    display: "flex",
+    padding: "1rem",
+
+    button: {
+      height: "1.618rem",
+      width: "1.618rem",
+      marginLeft: "0.618rem",
+      backgroundColor: "$primary",
+      border: "none",
+      borderRadius: "50%",
+      color: "transparent",
+    },
+  },
 });
 
 export { PaintingStyled, ToggleStyled };

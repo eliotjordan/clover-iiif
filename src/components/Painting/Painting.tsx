@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Player from "@/components/Player/Player";
 import ImageViewer from "@/components/ImageViewer/ImageViewer";
 import { LabeledResource } from "@/hooks/use-iiif/getSupplementingResources";
@@ -10,6 +10,11 @@ import PaintingPlaceholder from "./Placeholder";
 import { PaintingStyled } from "./Painting.styled";
 import Toggle from "./Toggle";
 import { useViewerState } from "@/context/viewer-context";
+import Edify from "@mathewjordan/edify/src/index";
+import {
+  ContentState,
+  encodeContentState,
+} from "@iiif/vault-helpers/content-state";
 
 interface PaintingProps {
   painting: IIIFExternalWebResource;
@@ -55,8 +60,9 @@ const Painting: React.FC<PaintingProps> = ({
   painting,
   resources,
 }) => {
+  const [iiifContent, setIiifContent] = React.useState();
   const [isInteractive, setIsInteractive] = React.useState(false);
-  const { configOptions, vault } = useViewerState();
+  const { activeManifest, configOptions, vault } = useViewerState();
   const normalizedCanvas: CanvasNormalized = vault.get(activeCanvas);
 
   const placeholderCanvas = normalizedCanvas?.placeholderCanvas?.id;
@@ -64,6 +70,25 @@ const Painting: React.FC<PaintingProps> = ({
   const showPlaceholder = placeholderCanvas && !isInteractive && !isMedia;
 
   const handleToggle = () => setIsInteractive(!isInteractive);
+
+  useEffect(() => {
+    const contentState = {
+      id: activeCanvas,
+      type: "Canvas",
+      partOf: [
+        {
+          id: activeManifest,
+          type: "Manifest",
+        },
+      ],
+    };
+
+    const encodeJson = (json: ContentState) => {
+      return encodeContentState(JSON.stringify(json));
+    };
+
+    setIiifContent(encodeJson(contentState));
+  }, [activeCanvas, activeManifest]);
 
   return (
     <PaintingStyled
@@ -79,7 +104,6 @@ const Painting: React.FC<PaintingProps> = ({
           isMedia={isMedia}
         />
       )}
-
       {showPlaceholder && !isMedia && (
         <PaintingPlaceholder
           isMedia={isMedia}
@@ -88,7 +112,6 @@ const Painting: React.FC<PaintingProps> = ({
           setIsInteractive={setIsInteractive}
         />
       )}
-
       {!showPlaceholder && (
         <div>
           {isMedia ? (
@@ -98,11 +121,9 @@ const Painting: React.FC<PaintingProps> = ({
             />
           ) : (
             painting && (
-              <ImageViewer
-                body={painting}
-                hasPlaceholder={hasPlaceholder}
-                key={activeCanvas}
-              />
+              <Edify iiifContent={iiifContent}>
+                <Edify.Canvas />
+              </Edify>
             )
           )}
         </div>

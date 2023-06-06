@@ -33,7 +33,7 @@ const ThumbnailPanelWrapper = styled("div", {
     },
 
     "figure > div": {
-      width: "143px !important",
+      width: "107px !important",
     },
   },
 });

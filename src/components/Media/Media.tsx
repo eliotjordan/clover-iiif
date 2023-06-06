@@ -1,7 +1,8 @@
+// @ts-nocheck
+
 import "@iiif/thumbnail-panel/dist/style.css";
 
-import React, { useState } from "react";
-import { CanvasEntity } from "@/hooks/use-iiif/getCanvasByCriteria";
+import React from "react";
 import { Canvas } from "@iiif/presentation-3";
 import { useViewerState, useViewerDispatch } from "@/context/viewer-context";
 import { IIIFContentProvider, ThumbnailPanel } from "@iiif/thumbnail-panel";
@@ -35,6 +36,7 @@ const Media: React.FC<MediaProps> = () => {
           iiifContent={activeManifest}
           onResourceChanged={handleChange}
           orientation="horizontal"
+          overrides={{ thumbnailSize: 150 }}
         />
       </IIIFContentProvider>
     </ThumbnailPanelWrapper>
