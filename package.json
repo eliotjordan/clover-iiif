@@ -18,6 +18,11 @@
       "require": "./dist/primitives/index.umd.js",
       "types": "./dist/primitives/index.d.ts"
     },
+    "./scroll": {
+      "import": "./dist/scroll/index.mjs",
+      "require": "./dist/scroll/index.umd.js",
+      "types": "./dist/scroll/index.d.ts"
+    },
     "./slider": {
       "import": "./dist/slider/index.mjs",
       "require": "./dist/slider/index.umd.js",
