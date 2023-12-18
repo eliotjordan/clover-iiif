@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 
 // todo: set this as a constant somewhere?
 const defaultIiifContent =
-  "https://api.dc.library.northwestern.edu/api/v2/works/ad25d4af-8a12-4d8f-a557-79aea012e081?as=iiif";
+  "https://raw.githubusercontent.com/mathewjordan/iiif/main/manifest/tsg/commenting.json";
 
 const Scroll = dynamic(() => import("src/components/Scroll"), {
   ssr: false,
@@ -13,10 +13,8 @@ const Scroll = dynamic(() => import("src/components/Scroll"), {
 
 const CloverScroll = ({
   iiifContent = defaultIiifContent,
-  options,
 }: {
   iiifContent: string;
-  options?: any;
 }) => {
   const [iiifResource, setIiifResource] = useState<string>();
 

@@ -1,8 +1,8 @@
 // @ts-nocheck
 
-import { Canvas, Manifest } from "@iiif/presentation-3";
 import React, { useEffect, useRef } from "react";
 
+import { Canvas } from "@iiif/presentation-3";
 import { styled } from "src/styles/stitches.config";
 import { useIntersectionObserver } from "src/hooks/useIntersectionObserver";
 
@@ -33,13 +33,15 @@ const ScrollCanvas: React.FC<ScrollCanvasProps> = ({
 
   const { annotations } = canvas;
 
-  const annnotationMarkup = annotations?.map((pages) => {
-    return pages?.items?.map((item) => {
+  const annotationBody = annotations?.map((pages) => {
+    return pages?.items?.map((item, index) => {
       const { body } = item;
       if (body?.format === "text/html") {
-        return <div dangerouslySetInnerHTML={{ __html: body.value }} />;
+        return (
+          <div dangerouslySetInnerHTML={{ __html: body.value }} key={index} />
+        );
       } else if (body.format === "text/plain") {
-        return <div>{body.value}</div>;
+        return <PlainText key={index}>{body.value}</PlainText>;
       }
     });
   });
@@ -50,7 +52,7 @@ const ScrollCanvas: React.FC<ScrollCanvasProps> = ({
       data-active={isActive}
       ref={itemRef}
     >
-      {annnotationMarkup ? annnotationMarkup : <p>[Blank]</p>}
+      {annotationBody ? annotationBody : <p>[Blank]</p>}
       {hasPageBreak && <hr data-content="Page Break" />}
     </StyledItem>
   );
@@ -59,9 +61,12 @@ const ScrollCanvas: React.FC<ScrollCanvasProps> = ({
 const StyledItem = styled("article", {
   fontSize: "1.13rem !important",
   transition: "all 0.2s ease-in-out",
+  display: "flex",
+  flexDirection: "column",
+  gap: "1.618rem",
 
   hr: {
-    padding: "2rem 0",
+    padding: "2.618rem 0",
     borderColor: "transparent",
     height: "1rem",
     position: "relative",
@@ -74,10 +79,11 @@ const StyledItem = styled("article", {
       position: "absolute",
       zIndex: 1,
       display: "flex",
-      fontSize: "0.8rem",
+      fontSize: "0.75rem",
+      fontWeight: "700",
+      marginTop: "-0.5rem",
       lineHeight: "1rem",
       background: "inherit",
-      fontStyle: "italic",
     },
 
     "&::after": {
@@ -85,11 +91,16 @@ const StyledItem = styled("article", {
       width: "100%",
       position: "absolute",
       zIndex: 0,
-      top: "calc(50% + 1px)",
+      top: "50%",
       height: "1px",
-      background: "#6662",
+      background: "#6661",
     },
   },
+});
+
+const PlainText = styled("div", {
+  wordWrap: "break-word !important",
+  whiteSpace: "pre-line !important",
 });
 
 export default ScrollCanvas;
