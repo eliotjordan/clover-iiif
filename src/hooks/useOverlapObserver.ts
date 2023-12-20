@@ -2,7 +2,7 @@ import { RefObject, useEffect, useState } from "react";
 
 const useOverlapObserver = (
   targetRef: RefObject<HTMLElement>,
-  rootRef: RefObject<HTMLElement>
+  rootRef: RefObject<HTMLElement>,
 ) => {
   const [isOverlapping, setIsOverlapping] = useState(false);
 

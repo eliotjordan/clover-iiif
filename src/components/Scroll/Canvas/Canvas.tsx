@@ -27,7 +27,7 @@ const ScrollCanvas: React.FC<CanvasProps> = ({ manifest, activeCanvas }) => {
 
   return (
     <StyledCanvas>
-      {body && <ImageViewer body={body} hasPlaceholder={false} />}
+      {body && <ImageViewer body={body} />}
       <figcaption>
         <em>
           {pageNumber} / {manifest.items.length}
@@ -47,9 +47,9 @@ const StyledCanvas = styled("figure", {
     opacity: 0.9,
 
     em: {
-      fontSize: "0.75em",
+      fontSize: "0.9em",
       fontStyle: "normal",
-      fontWeight: "700",
+      opacity: 0.7,
     },
   },
 });

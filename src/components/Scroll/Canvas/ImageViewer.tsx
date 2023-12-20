@@ -6,10 +6,9 @@ import { getImageServiceURI } from "src/lib/iiif";
 
 interface ImageViewerProps {
   body: IIIFExternalWebResource;
-  hasPlaceholder: boolean;
 }
 
-const ImageViewer: React.FC<ImageViewerProps> = ({ body, hasPlaceholder }) => {
+const ImageViewer: React.FC<ImageViewerProps> = ({ body }) => {
   const [imageType, setImageType] = useState<osdImageTypes>();
   const [uri, setUri] = useState<string | undefined>();
 
@@ -23,14 +22,7 @@ const ImageViewer: React.FC<ImageViewerProps> = ({ body, hasPlaceholder }) => {
     }
   }, [body]);
 
-  return (
-    <OSD
-      uri={uri}
-      key={uri}
-      imageType={imageType}
-      hasPlaceholder={hasPlaceholder}
-    />
-  );
+  return <OSD uri={uri} key={uri} imageType={imageType} />;
 };
 
 export default ImageViewer;

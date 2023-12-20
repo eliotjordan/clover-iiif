@@ -12,6 +12,7 @@ interface ScrollCanvasProps {
   isActive: boolean;
   isIntersecting: (data: string) => void;
   offset: number;
+  pageNumber: number;
 }
 
 const ScrollCanvas: React.FC<ScrollCanvasProps> = ({
@@ -20,6 +21,7 @@ const ScrollCanvas: React.FC<ScrollCanvasProps> = ({
   isActive,
   isIntersecting,
   offset,
+  pageNumber,
 }) => {
   const itemRef = useRef<HTMLElement>(null);
   const entry = useIntersectionObserver(itemRef, {
@@ -52,6 +54,7 @@ const ScrollCanvas: React.FC<ScrollCanvasProps> = ({
       data-active={isActive}
       ref={itemRef}
     >
+      {pageNumber}
       {annotationBody ? annotationBody : <p>[Blank]</p>}
       {hasPageBreak && <hr data-content="Page Break" />}
     </StyledItem>

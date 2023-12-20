@@ -13,8 +13,10 @@ const Scroll = dynamic(() => import("src/components/Scroll"), {
 
 const CloverScroll = ({
   iiifContent = defaultIiifContent,
+  options,
 }: {
   iiifContent: string;
+  options;
 }) => {
   const [iiifResource, setIiifResource] = useState<string>();
 
@@ -29,7 +31,7 @@ const CloverScroll = ({
 
   if (!iiifResource) return <></>;
 
-  return <Scroll iiifContent={iiifResource} offset={100} />;
+  return <Scroll iiifContent={iiifResource} options={options} />;
 };
 
 export default CloverScroll;

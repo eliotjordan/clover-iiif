@@ -15,10 +15,9 @@ export type osdImageTypes = "tiledImage" | "simpleImage" | undefined;
 interface OSDProps {
   uri: string | undefined;
   imageType: osdImageTypes;
-  hasPlaceholder: boolean;
 }
 
-const OSD: React.FC<OSDProps> = ({ uri, imageType, hasPlaceholder }) => {
+const OSD: React.FC<OSDProps> = ({ uri, imageType }) => {
   const [osdUri, setOsdUri] = useState<string>();
   const viewerState: any = useViewerState();
   const { configOptions } = viewerState;
@@ -67,12 +66,12 @@ const OSD: React.FC<OSDProps> = ({ uri, imageType, hasPlaceholder }) => {
           getInfoResponse(osdUri).then((tileSource) =>
             OpenSeadragon(config).addTiledImage({
               tileSource: tileSource,
-            })
+            }),
           );
           break;
         default:
           console.warn(
-            `Unable to render ${osdUri} in OpenSeadragon as type: "${imageType}"`
+            `Unable to render ${osdUri} in OpenSeadragon as type: "${imageType}"`,
           );
           break;
       }

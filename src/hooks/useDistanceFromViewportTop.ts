@@ -9,7 +9,7 @@ interface Position {
  * Hook that returns an element's distance from the top of the visible window.
  */
 export const useDistanceFromViewportTop = (
-  ref: React.RefObject<HTMLElement>
+  ref: React.RefObject<HTMLElement>,
 ): Position => {
   const [position, setPosition] = useState<Position>({ top: 0, left: 0 });
 
