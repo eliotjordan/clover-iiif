@@ -1,17 +1,21 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import {
+  StyledScrollAside,
+  StyledScrollContent,
+  StyledScrollFixed,
+  StyledScrollSection,
+} from "./Section.styled";
 
-import Header from "../Header/Header";
-import Panel from "../Panel/Panel";
 import { ScrollContext } from "src/context/scroll-context";
+import ScrollHeader from "./Header";
 import ScrollItem from "../Item/Item";
-import { styled } from "@stitches/react";
+import ScrollPanel from "./Panel";
 import { useDistanceFromViewportTop } from "src/hooks/useDistanceFromViewportTop";
 
-const CloverScrollSection: React.FC = () => {
+const ScrollSection: React.FC = () => {
   const [activeCanvas, setActiveCanvas] = useState<string | undefined>();
   const [index, setIndex] = useState<string | undefined>();
   const scrollCanvasRef = useRef<HTMLDivElement>(null);
-  const widthRef = useRef<HTMLDivElement>(null);
 
   const { state } = useContext(ScrollContext);
   const { manifest, options } = state;
@@ -19,7 +23,7 @@ const CloverScrollSection: React.FC = () => {
 
   const { top } = useDistanceFromViewportTop(scrollCanvasRef);
   const isAnchored = top ? top < offset : false;
-  const width = widthRef?.current?.offsetWidth;
+  const width = scrollCanvasRef?.current?.offsetWidth;
 
   useEffect(() => {
     if (!index) return;
@@ -35,26 +39,21 @@ const CloverScrollSection: React.FC = () => {
   if (!manifest) return null;
 
   return (
-    <StyledWrapper>
-      <StyledScrollFixed
+    <StyledScrollSection>
+      <StyledScrollAside
         ref={scrollCanvasRef}
         className={isAnchored ? "anchor" : ""}
       >
-        <div
-          data-type="wrapper"
+        <StyledScrollFixed
           style={{
             top: isAnchored ? offset : 0,
             width,
-            display: "flex",
-            flexDirection: "column",
-            gap: "1rem",
           }}
         >
-          <Header label={manifest.label} />
-          <Panel manifest={manifest} activeCanvas={activeCanvas} />
-        </div>
-        <Width ref={widthRef} />
-      </StyledScrollFixed>
+          <ScrollHeader label={manifest.label} />
+          <ScrollPanel manifest={manifest} activeCanvas={activeCanvas} />
+        </StyledScrollFixed>
+      </StyledScrollAside>
       <StyledScrollContent>
         {manifest.items.map((canvas, index) => {
           const pageNumber = index + 1;
@@ -71,51 +70,8 @@ const CloverScrollSection: React.FC = () => {
           );
         })}
       </StyledScrollContent>
-    </StyledWrapper>
+    </StyledScrollSection>
   );
 };
 
-const StyledScrollContent = styled("div", {
-  width: "61.8%",
-  position: "relative",
-  zIndex: "1",
-});
-
-const StyledWrapper = styled("div", {
-  display: "flex",
-  margin: "0",
-  gap: "2.618rem",
-});
-
-const StyledScrollFixed = styled("div", {
-  margin: "0",
-  padding: "0",
-  position: "relative",
-  zIndex: 2,
-  minWidth: "273px",
-  flexGrow: "1",
-  flexShrink: "0",
-
-  "div[data-type=wrapper]": {
-    position: "absolute",
-    width: "100%",
-    top: 0,
-  },
-
-  "&.anchor": {
-    "div[data-type=wrapper]": {
-      position: "fixed",
-      width: "100%",
-    },
-  },
-});
-
-const Width = styled("div", {
-  background: "transparent",
-  height: "1px",
-  position: "absolute",
-  width: "100%",
-  zIndex: 0,
-});
-
-export default CloverScrollSection;
+export default ScrollSection;

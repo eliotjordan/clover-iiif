@@ -2,7 +2,7 @@ import * as Tabs from "@radix-ui/react-tabs";
 
 import { styled } from "src/styles/stitches.config";
 
-const Wrapper = styled(Tabs.Root, {
+const StyledPanel = styled(Tabs.Root, {
   display: "flex",
   flexDirection: "column",
   width: "100%",
@@ -13,13 +13,13 @@ const Wrapper = styled(Tabs.Root, {
   zIndex: "1",
 });
 
-const List = styled(Tabs.List, {
+const StyledPanelTabs = styled(Tabs.List, {
   display: "flex",
   flexGrow: "0",
   borderBottom: "2px solid #6662",
 });
 
-const Trigger = styled(Tabs.Trigger, {
+const StyledPanelTab = styled(Tabs.Trigger, {
   display: "flex",
   position: "relative",
   padding: "0.5rem 1rem",
@@ -55,6 +55,6 @@ const Trigger = styled(Tabs.Trigger, {
   },
 });
 
-const Content = styled(Tabs.Content, {});
+const StyledPanelContent = styled(Tabs.Content, {});
 
-export { Content, List, Trigger, Wrapper };
+export { StyledPanel, StyledPanelContent, StyledPanelTab, StyledPanelTabs };
