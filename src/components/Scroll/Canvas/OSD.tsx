@@ -82,9 +82,7 @@ const OSD: React.FC<OSDProps> = ({ uri, imageType }) => {
     <Wrapper
       css={{
         backgroundColor: "#6662",
-        boxShadow: "3px 3px 8px #6664",
         height: configOptions.canvasHeight,
-        borderRadius: "3px",
       }}
     >
       <Controls options={config} hasPlaceholder={false} />

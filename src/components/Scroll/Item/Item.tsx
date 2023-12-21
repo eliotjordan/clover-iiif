@@ -24,26 +24,57 @@ const ScrollCanvas: React.FC<ScrollCanvasProps> = ({
 }) => {
   const itemRef = useRef<HTMLElement>(null);
   const { dispatch, state } = useContext(ScrollContext);
+  const { activeCanvas, isIntersecting } = state;
 
   const entry = useIntersectionObserver(itemRef, {
     rootMargin: `-${offset}px 0px 0px 0px`,
   });
   const isVisible = !!entry?.isIntersecting;
 
+  const boundingClientRect = itemRef?.current?.getBoundingClientRect();
+
   useEffect(() => {
-    let isIntersecting = state?.isIntersecting;
+    let updateIsIntersecting = isIntersecting;
 
     if (isVisible) {
-      isIntersecting = isIntersecting?.concat(canvas.id);
+      updateIsIntersecting = updateIsIntersecting?.concat(canvas.id);
     } else {
-      isIntersecting = isIntersecting?.filter((id) => id !== canvas.id);
+      updateIsIntersecting = updateIsIntersecting?.filter(
+        (id) => id !== canvas.id,
+      );
     }
 
     dispatch({
-      payload: isIntersecting,
+      payload: updateIsIntersecting,
       type: "updateIsIntersecting",
     });
   }, [isVisible]);
+
+  useEffect(() => {
+    if (activeCanvas === canvas.id) {
+      const calculateVisibility = () => {
+        const { top, height } = boundingClientRect;
+
+        let visibleHeight;
+        let visibility = 100;
+
+        if (top < 0 && top + height > 0) {
+          visibleHeight = top + height - offset;
+          visibility = Math.max(
+            0,
+            Math.min(100, (visibleHeight / (height - offset)) * 100),
+          );
+        }
+
+        dispatch({
+          payload: 100 - visibility,
+          type: "updateActiveCompletionPercent",
+        });
+      };
+
+      calculateVisibility();
+    }
+  }, [activeCanvas, boundingClientRect?.top]);
 
   const { annotations } = canvas;
 

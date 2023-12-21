@@ -4,6 +4,7 @@ import { Manifest } from "@iiif/presentation-3";
 
 interface StateType {
   activeCanvas?: string;
+  activeCompletionPercent?: number;
   isIntersecting?: string[];
   manifest?: Manifest;
   options: {
@@ -18,6 +19,7 @@ interface ActionType {
 
 const initialState: StateType = {
   activeCanvas: undefined,
+  activeCompletionPercent: 0,
   isIntersecting: [],
   manifest: undefined,
   options: {
@@ -27,6 +29,11 @@ const initialState: StateType = {
 
 function reducer(state: StateType, action: ActionType): StateType {
   switch (action.type) {
+    case "updateActiveCompletionPercent":
+      return {
+        ...state,
+        activeCompletionPercent: action.payload,
+      };
     case "updateIsIntersecting":
       const activeCanvas = action.payload?.find(
         (entry) => typeof entry !== "undefined",
