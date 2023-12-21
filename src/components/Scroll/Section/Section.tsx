@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useRef } from "react";
 import {
   StyledScrollAside,
   StyledScrollContent,
@@ -13,28 +13,15 @@ import ScrollPanel from "./Panel";
 import { useDistanceFromViewportTop } from "src/hooks/useDistanceFromViewportTop";
 
 const ScrollSection: React.FC = () => {
-  const [activeCanvas, setActiveCanvas] = useState<string | undefined>();
-  const [index, setIndex] = useState<string | undefined>();
   const scrollCanvasRef = useRef<HTMLDivElement>(null);
 
   const { state } = useContext(ScrollContext);
-  const { manifest, options } = state;
+  const { activeCanvas, manifest, options } = state;
   const { offset } = options;
 
   const { top } = useDistanceFromViewportTop(scrollCanvasRef);
-  const isAnchored = top ? top < offset : false;
   const width = scrollCanvasRef?.current?.offsetWidth;
-
-  useEffect(() => {
-    if (!index) return;
-    const firstItem = Object.keys(index).find((key) => index[key] === true);
-    setActiveCanvas(firstItem);
-  }, [index]);
-
-  const handleIntersecting = (data) => {
-    // @ts-ignore
-    setIndex((prev) => ({ ...prev, ...data }));
-  };
+  const isAnchored = top ? top < offset : false;
 
   if (!manifest) return null;
 
@@ -62,7 +49,6 @@ const ScrollSection: React.FC = () => {
               canvas={canvas}
               hasPageBreak={index + 1 < manifest?.items.length}
               isActive={activeCanvas === canvas.id}
-              isIntersecting={handleIntersecting}
               key={index}
               offset={offset}
               pageNumber={pageNumber}

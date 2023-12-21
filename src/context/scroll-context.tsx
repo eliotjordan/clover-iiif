@@ -3,7 +3,8 @@ import React, { Dispatch, createContext, useReducer } from "react";
 import { Manifest } from "@iiif/presentation-3";
 
 interface StateType {
-  index: { [key: string]: boolean };
+  activeCanvas?: string;
+  isIntersecting?: string[];
   manifest?: Manifest;
   options: {
     offset: number;
@@ -16,7 +17,8 @@ interface ActionType {
 }
 
 const initialState: StateType = {
-  index: {},
+  activeCanvas: undefined,
+  isIntersecting: [],
   manifest: undefined,
   options: {
     offset: 0,
@@ -25,6 +27,15 @@ const initialState: StateType = {
 
 function reducer(state: StateType, action: ActionType): StateType {
   switch (action.type) {
+    case "updateIsIntersecting":
+      const activeCanvas = action.payload?.find(
+        (entry) => typeof entry !== "undefined",
+      );
+      return {
+        ...state,
+        activeCanvas: activeCanvas,
+        isIntersecting: action.payload,
+      };
     default:
       return state;
   }
@@ -54,8 +65,6 @@ export const ScrollProvider: React.FC<ScrollProviderProps> = (props) => {
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
-
-  console.log(props);
 
   return (
     <ScrollContext.Provider

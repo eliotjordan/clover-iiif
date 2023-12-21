@@ -1,8 +1,9 @@
 // @ts-nocheck
 
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 
 import { Canvas } from "@iiif/presentation-3";
+import { ScrollContext } from "src/context/scroll-context";
 import { styled } from "src/styles/stitches.config";
 import { useIntersectionObserver } from "src/hooks/useIntersectionObserver";
 
@@ -10,7 +11,6 @@ interface ScrollCanvasProps {
   canvas: Canvas;
   hasPageBreak: boolean;
   isActive: boolean;
-  isIntersecting: (data: string) => void;
   offset: number;
   pageNumber: number;
 }
@@ -19,18 +19,30 @@ const ScrollCanvas: React.FC<ScrollCanvasProps> = ({
   canvas,
   hasPageBreak,
   isActive,
-  isIntersecting,
   offset,
   pageNumber,
 }) => {
   const itemRef = useRef<HTMLElement>(null);
+  const { dispatch, state } = useContext(ScrollContext);
+
   const entry = useIntersectionObserver(itemRef, {
     rootMargin: `-${offset}px 0px 0px 0px`,
   });
   const isVisible = !!entry?.isIntersecting;
 
   useEffect(() => {
-    isIntersecting({ [canvas.id]: isVisible });
+    let isIntersecting = state?.isIntersecting;
+
+    if (isVisible) {
+      isIntersecting = isIntersecting?.concat(canvas.id);
+    } else {
+      isIntersecting = isIntersecting?.filter((id) => id !== canvas.id);
+    }
+
+    dispatch({
+      payload: isIntersecting,
+      type: "updateIsIntersecting",
+    });
   }, [isVisible]);
 
   const { annotations } = canvas;
