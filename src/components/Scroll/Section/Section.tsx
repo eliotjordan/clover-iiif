@@ -4,15 +4,15 @@ import {
   StyledScrollContent,
   StyledScrollFixed,
   StyledScrollSection,
-} from "./Section.styled";
+} from "src/components/Scroll/Section/Section.styled";
 
 import { ScrollContext } from "src/context/scroll-context";
-import ScrollHeader from "./Header";
-import ScrollItem from "../Item/Item";
-import ScrollPanel from "./Panel";
+import ScrollHeader from "src/components/Scroll/Section/Header";
+import ScrollItem from "src/components/Scroll/Item/Item";
+import ScrollPanel from "src/components/Scroll/Section/Panel";
 import { useDistanceFromViewportTop } from "src/hooks/useDistanceFromViewportTop";
 
-const ScrollSection: React.FC = () => {
+const ScrollSection = () => {
   const scrollCanvasRef = useRef<HTMLDivElement>(null);
 
   const { state } = useContext(ScrollContext);

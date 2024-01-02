@@ -1,4 +1,4 @@
-import { styled } from "@stitches/react";
+import { styled } from "src/styles/stitches.config";
 
 const StyledScrollContent = styled("div", {
   width: "61.8%",

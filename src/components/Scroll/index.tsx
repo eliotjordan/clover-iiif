@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import { Manifest } from "@iiif/presentation-3";
 import { ScrollProvider } from "src/context/scroll-context";
-import ScrollSection from "./Section/Section";
+import ScrollSection from "src/components/Scroll/Section/Section";
 
 export interface CloverScrollProps {
   iiifContent: string;
@@ -18,7 +18,7 @@ const CloverScroll: React.FC<CloverScrollProps> = ({
   useEffect(() => {
     (async () => {
       const manifest = await fetch(iiifContent);
-      const manifestJson = await manifest.json();
+      const manifestJson = await manifest?.json();
       setManifest(manifestJson);
     })();
   }, [iiifContent]);

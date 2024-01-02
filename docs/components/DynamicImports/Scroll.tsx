@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 
 // todo: set this as a constant somewhere?
 const defaultIiifContent =
-  "https://raw.githubusercontent.com/mathewjordan/iiif/main/manifest/tsg/commenting.json";
+  "http://localhost:3000/manifest/annotations/commenting.json";
 
 const Scroll = dynamic(() => import("src/components/Scroll"), {
   ssr: false,
@@ -29,9 +29,7 @@ const CloverScroll = ({
       : setIiifResource(iiifContent);
   }, [iiifContentParam]);
 
-  if (!iiifResource) return <></>;
-
-  return <Scroll iiifContent={iiifResource} options={options} />;
+  return <Scroll iiifContent={iiifResource as string} options={options} />;
 };
 
 export default CloverScroll;

@@ -121,11 +121,9 @@ const StyledItem = styled("article", {
   gap: "1.618rem",
   padding: "1.618rem 0",
   opacity: "0.7",
-  transform: "translateX(1.618rem)",
 
   "&[data-active=true]": {
     opacity: "1",
-    transform: "translateX(0)",
   },
 });
 
