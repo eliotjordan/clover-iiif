@@ -29,6 +29,8 @@ const ScrollCanvas: React.FC<CanvasProps> = ({ manifest, activeCanvas }) => {
   const pageNumber =
     manifest.items.findIndex((item) => item.id === activeCanvas) + 1;
 
+  if (!canvas) return null;
+
   return (
     <StyledCanvas>
       {body && <ImageViewer body={body} />}
