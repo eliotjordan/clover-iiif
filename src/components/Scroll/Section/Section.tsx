@@ -44,11 +44,13 @@ const ScrollSection: React.FC = () => {
       <StyledScrollContent>
         {manifest.items.map((canvas, index) => {
           const pageNumber = index + 1;
+          const isLastItem = pageNumber === manifest?.items.length;
           return (
             <ScrollItem
               canvas={canvas}
               hasPageBreak={index + 1 < manifest?.items.length}
               isActive={activeCanvas === canvas.id}
+              isLastItem={isLastItem}
               key={index}
               offset={offset}
               pageNumber={pageNumber}

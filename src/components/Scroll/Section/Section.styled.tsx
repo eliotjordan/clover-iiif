@@ -48,7 +48,8 @@ const StyledScrollHeader = styled("header", {
 const StyledScrollSection = styled("section", {
   display: "flex",
   margin: "0",
-  gap: "2.618rem",
+  gap: "1.618rem",
+  overflow: "hidden",
 });
 
 export {

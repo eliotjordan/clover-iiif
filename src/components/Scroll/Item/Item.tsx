@@ -7,18 +7,20 @@ import { ScrollContext } from "src/context/scroll-context";
 import { styled } from "src/styles/stitches.config";
 import { useIntersectionObserver } from "src/hooks/useIntersectionObserver";
 
-interface ScrollCanvasProps {
+interface ScrollItemProps {
   canvas: Canvas;
   hasPageBreak: boolean;
   isActive: boolean;
+  isLastItem: boolean;
   offset: number;
   pageNumber: number;
 }
 
-const ScrollCanvas: React.FC<ScrollCanvasProps> = ({
+const ScrollItem: React.FC<ScrollItemProps> = ({
   canvas,
   hasPageBreak,
   isActive,
+  isLastItem,
   offset,
   pageNumber,
 }) => {
@@ -32,6 +34,8 @@ const ScrollCanvas: React.FC<ScrollCanvasProps> = ({
   const isVisible = !!entry?.isIntersecting;
 
   const boundingClientRect = itemRef?.current?.getBoundingClientRect();
+
+  const marginBottom = isLastItem ? boundingClientRect?.height : 0;
 
   useEffect(() => {
     let updateIsIntersecting = isIntersecting;
@@ -92,55 +96,67 @@ const ScrollCanvas: React.FC<ScrollCanvasProps> = ({
   });
 
   return (
-    <StyledItem
-      data-page-break={hasPageBreak}
-      data-active={isActive}
-      ref={itemRef}
-    >
-      {pageNumber}
-      {annotationBody ? annotationBody : <p>[Blank]</p>}
-      {hasPageBreak && <hr data-content="Page Break" />}
-    </StyledItem>
+    <>
+      <StyledItem
+        data-active={isActive}
+        data-page-break={hasPageBreak}
+        data-page-number={pageNumber}
+        data-last-item={isLastItem}
+        ref={itemRef}
+        style={{ marginBottom }}
+      >
+        {pageNumber}
+        {annotationBody ? annotationBody : <p>[Blank]</p>}
+      </StyledItem>
+      {hasPageBreak && <PageBreak data-content="Page Break" />}
+    </>
   );
 };
 
 const StyledItem = styled("article", {
   fontSize: "1.13rem !important",
-  transition: "all 0.2s ease-in-out",
+  transition: "all 0.382s ease-in-out",
   display: "flex",
   flexDirection: "column",
   gap: "1.618rem",
+  padding: "1.618rem 0",
+  opacity: "0.7",
+  transform: "translateX(1.618rem)",
 
-  hr: {
-    padding: "2.618rem 0",
-    borderColor: "transparent",
-    height: "1rem",
-    position: "relative",
-    zIndex: 0,
+  "&[data-active=true]": {
+    opacity: "1",
+    transform: "translateX(0)",
+  },
+});
+
+const PageBreak = styled("hr", {
+  margin: "0",
+  borderColor: "transparent",
+  height: "1rem",
+  position: "relative",
+  zIndex: 0,
+  display: "flex",
+  justifyContent: "center",
+
+  "&::before": {
+    content: "attr(data-content)",
+    position: "absolute",
+    zIndex: 1,
     display: "flex",
-    justifyContent: "center",
+    fontSize: "0.75rem",
+    fontWeight: "700",
+    lineHeight: "1rem",
+    background: "inherit",
+  },
 
-    "&::before": {
-      content: "attr(data-content)",
-      position: "absolute",
-      zIndex: 1,
-      display: "flex",
-      fontSize: "0.75rem",
-      fontWeight: "700",
-      marginTop: "-0.5rem",
-      lineHeight: "1rem",
-      background: "inherit",
-    },
-
-    "&::after": {
-      content: "",
-      width: "100%",
-      position: "absolute",
-      zIndex: 0,
-      top: "50%",
-      height: "1px",
-      background: "#6661",
-    },
+  "&::after": {
+    content: "",
+    width: "100%",
+    position: "absolute",
+    zIndex: 0,
+    top: "50%",
+    height: "2px",
+    background: "#6661",
   },
 });
 
@@ -149,4 +165,4 @@ const PlainText = styled("div", {
   whiteSpace: "pre-line !important",
 });
 
-export default ScrollCanvas;
+export default ScrollItem;

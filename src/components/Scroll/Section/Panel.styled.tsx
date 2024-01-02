@@ -16,15 +16,14 @@ const StyledPanel = styled(Tabs.Root, {
 const StyledPanelTabs = styled(Tabs.List, {
   display: "flex",
   flexGrow: "0",
-  borderBottom: "2px solid #6662",
 });
 
 const StyledPanelTab = styled(Tabs.Trigger, {
   display: "flex",
   position: "relative",
-  padding: "0.5rem 1rem",
+  padding: "1rem 0.618rem",
   background: "none",
-  backgroundColor: "transparent",
+  backgroundColor: "#6660",
   fontFamily: "inherit",
   border: "none",
   opacity: "0.7",
@@ -33,25 +32,12 @@ const StyledPanelTab = styled(Tabs.Trigger, {
   whiteSpace: "nowrap",
   cursor: "pointer",
   transition: "$all",
-
-  "&::after": {
-    width: "0",
-    height: "2px",
-    content: "",
-    position: "absolute",
-    bottom: "-2px",
-    left: "0",
-    transition: "$all",
-  },
+  borderRadius: "6px",
 
   "&[data-state='active']": {
     opacity: "1",
+    fontWeight: "700",
     color: "$accent",
-
-    "&::after": {
-      width: "100%",
-      backgroundColor: "$accent",
-    },
   },
 });
 
