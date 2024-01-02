@@ -68,17 +68,30 @@ const ScrollSearch: React.FC = () => {
       >
         {results.map((index) => {
           return (
-            <div key={index}>
-              <button
-                style={{ backgroundColor: "#6662" }}
-                onClick={() => handleScrollTo(annotations[index].id)}
-              >
-                {annotations[index].id}
-                {annotations[index].motivation}
-              </button>
-            </div>
+            <button
+              style={{ backgroundColor: "#6662" }}
+              onClick={() => handleScrollTo(annotations[index].id)}
+              key={index}
+            >
+              {annotations[index].motivation}
+              {annotations[index].body.value.slice(0, 100)}...
+            </button>
           );
         })}
+        {annotations
+          .filter((annotation, index) => !results.includes(index))
+          .map((annotation) => {
+            return (
+              <button
+                style={{ backgroundColor: "#6661", opacity: 0.5 }}
+                onClick={() => handleScrollTo(annotation.id)}
+                key={annotation.id}
+              >
+                {annotation.motivation}
+                {annotation.body.value.slice(0, 100)}...
+              </button>
+            );
+          })}
       </div>
     </>
   );
