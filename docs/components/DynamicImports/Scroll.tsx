@@ -29,7 +29,9 @@ const CloverScroll = ({
       : setIiifResource(iiifContent);
   }, [iiifContentParam]);
 
-  return <Scroll iiifContent={iiifResource as string} options={options} />;
+  if (!iiifResource) return null;
+
+  return <Scroll iiifContent={iiifResource} options={options} />;
 };
 
 export default CloverScroll;
