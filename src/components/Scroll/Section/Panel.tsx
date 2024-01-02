@@ -9,6 +9,7 @@ import HeaderOptions from "./Options";
 import { Manifest } from "@iiif/presentation-3";
 import React from "react";
 import ScrollCanvas from "../Canvas/Canvas";
+import ScrollSearch from "../Search/Search";
 
 const ScrollPanel = ({
   manifest,
@@ -27,7 +28,9 @@ const ScrollPanel = ({
       <StyledPanelContent value="scroll-canvas">
         <ScrollCanvas manifest={manifest} activeCanvas={activeCanvas} />
       </StyledPanelContent>
-      <StyledPanelContent value="scroll-search"></StyledPanelContent>
+      <StyledPanelContent value="scroll-search">
+        <ScrollSearch />
+      </StyledPanelContent>
       <StyledPanelContent value="scroll-options">
         <HeaderOptions />
       </StyledPanelContent>

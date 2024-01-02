@@ -4,6 +4,7 @@ import React, { useContext, useEffect, useRef } from "react";
 
 import { Canvas } from "@iiif/presentation-3";
 import { ScrollContext } from "src/context/scroll-context";
+import ScrollItemBody from "./Body";
 import { styled } from "src/styles/stitches.config";
 import { useIntersectionObserver } from "src/hooks/useIntersectionObserver";
 
@@ -83,16 +84,9 @@ const ScrollItem: React.FC<ScrollItemProps> = ({
   const { annotations } = canvas;
 
   const annotationBody = annotations?.map((pages) => {
-    return pages?.items?.map((item, index) => {
-      const { body } = item;
-      if (body?.format === "text/html") {
-        return (
-          <div dangerouslySetInnerHTML={{ __html: body.value }} key={index} />
-        );
-      } else if (body.format === "text/plain") {
-        return <PlainText key={index}>{body.value}</PlainText>;
-      }
-    });
+    return pages?.items?.map((item, index) => (
+      <ScrollItemBody item={item} key={index} />
+    ));
   });
 
   return (
@@ -156,11 +150,6 @@ const PageBreak = styled("hr", {
     height: "2px",
     background: "#6661",
   },
-});
-
-const PlainText = styled("div", {
-  wordWrap: "break-word !important",
-  whiteSpace: "pre-line !important",
 });
 
 export default ScrollItem;

@@ -1,12 +1,13 @@
+import { Annotation, Manifest } from "@iiif/presentation-3";
 import React, { Dispatch, createContext, useReducer } from "react";
 
-import { Manifest } from "@iiif/presentation-3";
-
 interface StateType {
+  annotations: Annotation[];
   activeCanvas?: string;
   activeCompletionPercent?: number;
   isIntersecting?: string[];
   manifest?: Manifest;
+  scrollToCanvas?: string;
   options: {
     offset: number;
   };
@@ -18,10 +19,12 @@ interface ActionType {
 }
 
 const initialState: StateType = {
+  annotations: [],
   activeCanvas: undefined,
   activeCompletionPercent: 0,
   isIntersecting: [],
   manifest: undefined,
+  scrollToCanvas: undefined,
   options: {
     offset: 0,
   },
@@ -43,6 +46,11 @@ function reducer(state: StateType, action: ActionType): StateType {
         activeCanvas: activeCanvas,
         isIntersecting: action.payload,
       };
+    case "updateScrollToCanvas":
+      return {
+        ...state,
+        scrollToCanvas: action.payload,
+      };
     default:
       return state;
   }
@@ -57,6 +65,7 @@ export const ScrollContext = createContext<{
 });
 
 interface ScrollProviderProps {
+  annotations: Annotation[];
   children: React.ReactNode;
   manifest?: Manifest;
   options?: {
@@ -65,7 +74,7 @@ interface ScrollProviderProps {
 }
 
 export const ScrollProvider: React.FC<ScrollProviderProps> = (props) => {
-  const { manifest, children } = props;
+  const { annotations, manifest, children } = props;
   const options = {
     ...initialState.options,
     ...props.options,
@@ -76,7 +85,7 @@ export const ScrollProvider: React.FC<ScrollProviderProps> = (props) => {
   return (
     <ScrollContext.Provider
       value={{
-        state: { ...state, manifest, options },
+        state: { ...state, annotations, manifest, options },
         dispatch,
       }}
     >

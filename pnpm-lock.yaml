@@ -44,6 +44,9 @@ dependencies:
   '@stitches/react':
     specifier: ^1.2.8
     version: 1.2.8(react@18.2.0)
+  flexsearch:
+    specifier: ^0.7.31
+    version: 0.7.31
   hls.js:
     specifier: ^1.4.12
     version: 1.4.12
@@ -4309,7 +4312,6 @@ packages:
 
   /flexsearch@0.7.31:
     resolution: {integrity: sha512-XGozTsMPYkm+6b5QL3Z9wQcJjNYxp0CYn3U1gO7dwD6PAqU1SVWZxI9CCg3z+ml3YfqdPnrBehaBrnH2AGKbNA==}
-    dev: true
 
   /focus-visible@5.2.0:
     resolution: {integrity: sha512-Rwix9pBtC1Nuy5wysTmKy+UjbDJpIfg8eHjw0rjZ1mX4GNLz1Bmd16uDpI3Gk1i70Fgcs8Csg2lPm8HULFg9DQ==}
