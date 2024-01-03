@@ -114,11 +114,6 @@ const StyledItem = styled("article", {
   flexDirection: "column",
   gap: "1.618rem",
   padding: "1.618rem 0",
-  opacity: "0.7",
-
-  "&[data-active=true]": {
-    opacity: "1",
-  },
 });
 
 const PageBreak = styled("hr", {

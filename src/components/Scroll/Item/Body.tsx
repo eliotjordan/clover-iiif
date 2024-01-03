@@ -20,13 +20,15 @@ const ScrollItemBody = ({ item }) => {
 
   const { body } = item;
   if (body?.format === "text/html") {
-    return <div dangerouslySetInnerHTML={{ __html: body.value }} />;
+    return <HTML dangerouslySetInnerHTML={{ __html: body.value }} />;
   } else if (body.format === "text/plain") {
-    return <PlainText ref={bodyRef}>{body.value}</PlainText>;
+    return <Plain ref={bodyRef}>{body.value}</Plain>;
   }
 };
 
-const PlainText = styled("div", {
+const HTML = styled("div", {});
+
+const Plain = styled("div", {
   wordWrap: "break-word !important",
   whiteSpace: "pre-line !important",
 });

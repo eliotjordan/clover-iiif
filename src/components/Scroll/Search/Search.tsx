@@ -1,6 +1,13 @@
 // @ts-nocheck
 
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
+import {
+  StyledSearch,
+  StyledSearchAnnotationInformation,
+  StyledSearchAnnotations,
+  StyledSearchForm,
+  StyledSearchTag,
+} from "./Search.styled";
 
 import { Document } from "flexsearch";
 import { ScrollContext } from "src/context/scroll-context";
@@ -17,10 +24,8 @@ const config = {
 };
 
 const ScrollSearch: React.FC = () => {
-  const [search, setSearch] = useState<string>("");
-
   const { dispatch, state } = useContext(ScrollContext);
-  const { annotations } = state;
+  const { annotations, searchString } = state;
 
   const index = new Document(config);
   annotations?.forEach((annotation, key) =>
@@ -30,7 +35,7 @@ const ScrollSearch: React.FC = () => {
     }),
   );
 
-  const results = index?.search(search).reduce((acc, curr) => {
+  const results = index?.search(searchString).reduce((acc, curr) => {
     return [...new Set([...acc, ...curr.result])];
   }, []);
 
@@ -41,40 +46,39 @@ const ScrollSearch: React.FC = () => {
     });
   };
 
+  const handleSearchChange = (e) => {
+    dispatch({
+      payload: e?.target?.value,
+      type: "updateSearchString",
+    });
+  };
+
   return (
-    <>
-      <form id="scroll-search">
+    <StyledSearch>
+      <StyledSearchForm id="scroll-search" autocomplete="off">
         <input
           name="search"
           type="text"
-          style={{
-            backgroundColor: "#6661",
-            width: "100%",
-            padding: "0.5rem 0.618rem",
-            fontSize: "0.9rem",
-            outline: "none",
-          }}
           placeholder="Search"
-          onChange={(e) => setSearch(e.target.value)}
+          defaultValue={searchString}
+          onChange={handleSearchChange}
         />
-      </form>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "1rem",
-          paddingTop: "1rem",
-        }}
-      >
+      </StyledSearchForm>
+      <StyledSearchAnnotations>
         {results.map((index) => {
           return (
             <button
-              style={{ backgroundColor: "#6662" }}
+              data-result="true"
               onClick={() => handleScrollTo(annotations[index].id)}
               key={index}
             >
-              {annotations[index].motivation}
-              {annotations[index].body.value.slice(0, 100)}...
+              <StyledSearchAnnotationInformation>
+                <StyledSearchTag>
+                  {annotations[index].motivation}
+                </StyledSearchTag>
+                <span>{annotations[index].body.language}</span>
+              </StyledSearchAnnotationInformation>
+              <span>{annotations[index].body.value.slice(0, 95)}...</span>
             </button>
           );
         })}
@@ -83,17 +87,20 @@ const ScrollSearch: React.FC = () => {
           .map((annotation) => {
             return (
               <button
-                style={{ backgroundColor: "#6661", opacity: 0.5 }}
+                data-result="false"
                 onClick={() => handleScrollTo(annotation.id)}
                 key={annotation.id}
               >
-                {annotation.motivation}
-                {annotation.body.value.slice(0, 100)}...
+                <StyledSearchAnnotationInformation>
+                  <StyledSearchTag>{annotation.motivation}</StyledSearchTag>
+                  <span>{annotation.body.language}</span>
+                </StyledSearchAnnotationInformation>
+                <span>{annotation.body.value.slice(0, 95)}...</span>
               </button>
             );
           })}
-      </div>
-    </>
+      </StyledSearchAnnotations>
+    </StyledSearch>
   );
 };
 

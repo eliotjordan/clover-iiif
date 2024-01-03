@@ -8,6 +8,7 @@ interface StateType {
   isIntersecting?: string[];
   manifest?: Manifest;
   scrollToCanvas?: string;
+  searchString?: string;
   options: {
     offset: number;
   };
@@ -25,6 +26,7 @@ const initialState: StateType = {
   isIntersecting: [],
   manifest: undefined,
   scrollToCanvas: undefined,
+  searchString: undefined,
   options: {
     offset: 0,
   },
@@ -50,6 +52,11 @@ function reducer(state: StateType, action: ActionType): StateType {
       return {
         ...state,
         scrollToCanvas: action.payload,
+      };
+    case "updateSearchString":
+      return {
+        ...state,
+        searchString: action.payload,
       };
     default:
       return state;

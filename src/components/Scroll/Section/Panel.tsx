@@ -22,13 +22,13 @@ const ScrollPanel = ({
     <StyledPanel orientation="horizontal" defaultValue="scroll-canvas">
       <StyledPanelTabs>
         <StyledPanelTab value="scroll-canvas">Canvas</StyledPanelTab>
-        <StyledPanelTab value="scroll-search">Search</StyledPanelTab>
+        <StyledPanelTab value="scroll-annotations">Annotations</StyledPanelTab>
         <StyledPanelTab value="scroll-options">Options</StyledPanelTab>
       </StyledPanelTabs>
       <StyledPanelContent value="scroll-canvas">
         <ScrollCanvas manifest={manifest} activeCanvas={activeCanvas} />
       </StyledPanelContent>
-      <StyledPanelContent value="scroll-search">
+      <StyledPanelContent value="scroll-annotations">
         <ScrollSearch />
       </StyledPanelContent>
       <StyledPanelContent value="scroll-options">
