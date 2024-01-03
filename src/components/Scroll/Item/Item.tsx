@@ -99,7 +99,6 @@ const ScrollItem: React.FC<ScrollItemProps> = ({
         ref={itemRef}
         style={{ marginBottom }}
       >
-        {pageNumber}
         {annotationBody ? annotationBody : <p>[Blank]</p>}
       </StyledItem>
       {hasPageBreak && <PageBreak data-content="Page Break" />}
@@ -112,8 +111,6 @@ const StyledItem = styled("article", {
   transition: "all 0.382s ease-in-out",
   display: "flex",
   flexDirection: "column",
-  gap: "1.618rem",
-  padding: "1.618rem 0",
 });
 
 const PageBreak = styled("hr", {
@@ -124,6 +121,7 @@ const PageBreak = styled("hr", {
   zIndex: 0,
   display: "flex",
   justifyContent: "center",
+  marginTop: "1.618rem",
 
   "&::before": {
     content: "attr(data-content)",

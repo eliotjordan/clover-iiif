@@ -20,17 +20,29 @@ const ScrollItemBody = ({ item }) => {
 
   const { body } = item;
   if (body?.format === "text/html") {
-    return <HTML dangerouslySetInnerHTML={{ __html: body.value }} />;
+    return (
+      <TextualBody
+        dangerouslySetInnerHTML={{ __html: body.value }}
+        data-format={body.format}
+        ref={bodyRef}
+      />
+    );
   } else if (body.format === "text/plain") {
-    return <Plain ref={bodyRef}>{body.value}</Plain>;
+    return (
+      <TextualBody data-format={body.format} ref={bodyRef}>
+        {body.value}
+      </TextualBody>
+    );
   }
 };
 
-const HTML = styled("div", {});
+const TextualBody = styled("div", {
+  paddingTop: "1.618rem",
 
-const Plain = styled("div", {
-  wordWrap: "break-word !important",
-  whiteSpace: "pre-line !important",
+  "&[data-format='text/plain']": {
+    wordWrap: "break-word !important",
+    whiteSpace: "pre-line !important",
+  },
 });
 
 export default ScrollItemBody;

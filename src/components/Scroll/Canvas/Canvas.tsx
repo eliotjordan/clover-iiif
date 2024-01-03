@@ -70,7 +70,7 @@ const StyledCanvas = styled("figure", {
 const StyledCompletionBar = styled("div", {
   width: "100%",
   height: "6px",
-  background: "#6663",
+  background: "#6662",
 });
 
 const StyledCompletionBarProgress = styled("div", {
