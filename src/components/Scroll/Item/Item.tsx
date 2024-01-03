@@ -128,7 +128,7 @@ const PageBreak = styled("hr", {
     position: "absolute",
     zIndex: 1,
     display: "flex",
-    fontSize: "0.75rem",
+    fontSize: "0.9rem",
     fontWeight: "700",
     lineHeight: "1rem",
     background: "inherit",

@@ -39,7 +39,7 @@ const StyledSearchAnnotations = styled("div", {
     opacity: "0.7",
     transition: "$all",
     padding: "0.5rem 0.618rem",
-    fontSize: "0.8em",
+    fontSize: "0.9rem",
     lineHeight: "1.1rem",
     textAlign: "left",
     borderRadius: "6px",

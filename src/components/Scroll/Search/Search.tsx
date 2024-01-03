@@ -39,6 +39,10 @@ const ScrollSearch: React.FC = () => {
     return [...new Set([...acc, ...curr.result])];
   }, []);
 
+  const searchResults = index?.search(searchString);
+
+  console.log(searchResults);
+
   const handleScrollTo = (id) => {
     dispatch({
       payload: id,
@@ -55,7 +59,7 @@ const ScrollSearch: React.FC = () => {
 
   return (
     <StyledSearch>
-      <StyledSearchForm id="scroll-search" autocomplete="off">
+      <StyledSearchForm id="scroll-search" autoComplete="off">
         <input
           name="search"
           type="text"
@@ -78,7 +82,7 @@ const ScrollSearch: React.FC = () => {
                 </StyledSearchTag>
                 <span>{annotations[index].body.language}</span>
               </StyledSearchAnnotationInformation>
-              <span>{annotations[index].body.value.slice(0, 95)}...</span>
+              <span>{annotations[index].body.value.slice(0, 150)}...</span>
             </button>
           );
         })}
@@ -95,7 +99,7 @@ const ScrollSearch: React.FC = () => {
                   <StyledSearchTag>{annotation.motivation}</StyledSearchTag>
                   <span>{annotation.body.language}</span>
                 </StyledSearchAnnotationInformation>
-                <span>{annotation.body.value.slice(0, 95)}...</span>
+                <span>{annotation.body.value.slice(0, 150)}...</span>
               </button>
             );
           })}
