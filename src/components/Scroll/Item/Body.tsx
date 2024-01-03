@@ -5,9 +5,12 @@ import { styled } from "src/styles/stitches.config";
 
 const ScrollItemBody = ({ item }) => {
   const [value, setValue] = useState<string>("");
+
   const bodyRef = useRef<HTMLDivElement>(null);
+
   const { state } = useContext(ScrollContext);
   const { scrollToCanvas, searchString } = state;
+
   const { body } = item;
 
   useEffect(() => {
@@ -39,6 +42,8 @@ const ScrollItemBody = ({ item }) => {
 
     setValue(value);
   }, [body, searchString]);
+
+  if (!value) return null;
 
   return (
     <TextualBody dangerouslySetInnerHTML={{ __html: value }} ref={bodyRef} />
