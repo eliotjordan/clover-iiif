@@ -5,18 +5,16 @@ import { styled } from "src/styles/stitches.config";
 const StyledPanel = styled(Tabs.Root, {
   display: "flex",
   flexDirection: "column",
-  width: "100%",
-  height: "100%",
   flexGrow: "1",
   flexShrink: "0",
   position: "relative",
   zIndex: "1",
+  width: "100%",
 });
 
 const StyledPanelTabs = styled(Tabs.List, {
   display: "flex",
   flexGrow: "0",
-  borderBottom: "4px solid #6662",
 });
 
 const StyledPanelTab = styled(Tabs.Trigger, {

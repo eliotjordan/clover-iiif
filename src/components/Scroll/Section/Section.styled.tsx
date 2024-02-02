@@ -1,15 +1,15 @@
 import { styled } from "src/styles/stitches.config";
 
 const StyledScrollContent = styled("div", {
-  width: "61.8%",
   position: "relative",
   zIndex: "1",
+  paddingTop: "3.618rem",
 });
 
 const StyledScrollFixed = styled("div", {
   display: "flex",
-  flexDirection: "column",
   gap: "1rem",
+  justifyContent: "space-between",
 });
 
 const StyledScrollAside = styled("div", {
@@ -23,14 +23,14 @@ const StyledScrollAside = styled("div", {
 
   [`& ${StyledScrollFixed}`]: {
     position: "absolute",
-    width: "100%",
+    width: "38.2%",
     top: 0,
   },
 
   "&.anchor": {
     [`& ${StyledScrollFixed}`]: {
       position: "fixed",
-      width: "100%",
+      width: "38.2%",
     },
   },
 });
@@ -39,16 +39,17 @@ const StyledScrollHeader = styled("header", {
   display: "flex",
   justifyContent: "space-between",
   fontSize: "1",
+  flexGrow: "1",
+  flexShrink: "0",
 
   strong: {
-    fontSize: "1.25rem",
+    fontSize: "2rem",
   },
 });
 
 const StyledScrollSection = styled("section", {
-  display: "flex",
   margin: "0",
-  gap: "1.618rem",
+  gap: "1rem",
   overflow: "hidden",
 });
 
