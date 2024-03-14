@@ -39,7 +39,7 @@ const ViewerContent: React.FC<ViewerContentProps> = ({
    */
 
   const isAside =
-    informationPanel?.renderAbout ||
+    (informationPanel?.renderAbout && informationOpen) ||
     (informationPanel?.renderAnnotation && annotationResources.length > 0);
 
   return (
