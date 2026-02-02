@@ -188,9 +188,22 @@ const RenderViewer: React.FC<CloverViewerProps> = ({
   ]);
 
   useEffect(() => {
-    if (activeManifest)
-      vault
-        .load(activeManifest)
+    if (activeManifest) {
+      // Try to get the manifest from vault cache first, fall back to load if not found
+      const loadOrGetManifest = async () => {
+        try {
+          // Check if manifest is already in vault
+          const cached = vault.get(activeManifest);
+          if (cached) {
+            return cached as ManifestNormalized;
+          }
+        } catch (e) {
+          // Manifest not in cache, will load from network
+        }
+        return await vault.load(activeManifest);
+      };
+
+      loadOrGetManifest()
         .then((data: ManifestNormalized) => {
           if (!data) return;
 
@@ -243,6 +256,7 @@ const RenderViewer: React.FC<CloverViewerProps> = ({
             isLoaded: true,
           });
         });
+    }
   }, [iiifContent, activeManifest, dispatch, vault]);
 
   useEffect(() => {
